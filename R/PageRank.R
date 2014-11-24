@@ -4,7 +4,7 @@ PageRank <- function(M, decay, quad.error = 1/10^5) {
   # http://en.wikipedia.org/wiki/PageRank#Power_Method
   #
   # Inputs
-  #  M: Hyperlink matrix where M(i,j) is the "vote" page i gives to page j
+  #  M: Hyperlink matrix where M(i,j) is the "vote" page i gives to page j. All rows must sum to 1.
   #  decay: Value between 0 and 1
   #  quad.error: Error tolerance
   #
@@ -28,7 +28,8 @@ PageRank <- function(M, decay, quad.error = 1/10^5) {
     iter <- iter + 1
   }
   
-  v <- v / sum(v)
+  v <- as.vector(v / sum(v))
+  names(v) <- colnames(M)
   
   return(list(pr = v, iter = iter))
 }
